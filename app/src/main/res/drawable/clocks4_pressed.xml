@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable = "@drawable/clocks_4"/>
+    <item>
+        <shape>
+            <gradient
+                android:type="radial"
+                android:gradientRadius="100%p"
+                android:startColor="#80000000"
+                android:endColor="#00000000"/>
+        </shape>
+    </item>
+
+</layer-list>

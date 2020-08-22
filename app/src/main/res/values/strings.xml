@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Матрица</string>
+    <string name="clock_title">Часы</string>
+    <string name="alarms">Будильники</string>
+    <string name="times">Время</string>
+    <string name="time">Часы : Минуты</string>
+    <string name="date">Дата</string>
+    <string name="seconds">Секунды</string>
+    <string name="sun">Солнце</string>
+</resources>
