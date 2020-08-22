@@ -1,64 +1,23 @@
 package com.project.myapplication;
 
 import android.annotation.SuppressLint;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.SearchManager;
-import android.app.TimePickerDialog;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Point;
-import android.os.AsyncTask;
+import android.graphics.drawable.Animatable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
-import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.AnimationUtils;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.HorizontalScrollView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.SeekBar;
-import android.widget.TextView;
-import android.widget.TimePicker;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.NotificationCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
-import static com.project.myapplication.MainActivity.brightness;
-import static com.project.myapplication.MainActivity.editor;
-import static com.project.myapplication.MainActivity.ipAddress;
 import static com.project.myapplication.MainActivity.isAutoBright;
-import static com.project.myapplication.MainActivity.isVisible;
-import static com.project.myapplication.MainActivity.maxMessageSize;
-import static com.project.myapplication.MainActivity.message;
 import static com.project.myapplication.MainActivity.messageArguments;
-import static com.project.myapplication.MainActivity.portNumber;
-import static com.project.myapplication.MainActivity.sendDelay;
-import static com.project.myapplication.MainActivity.sharedPreferences;
 
 public class ClockActivity extends AppCompatActivity {
     private Button autoBrightButton;
@@ -166,6 +125,7 @@ public class ClockActivity extends AppCompatActivity {
     private TabAdapter tabAdapter;
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private Button add_circle_but;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -188,9 +148,51 @@ public class ClockActivity extends AppCompatActivity {
         viewPager.setAdapter(tabAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
+        add_circle_but = findViewById(R.id.add_alarm_but);
+        add_circle_but.setBackground(getDrawable(R.drawable.anim_add_circle_selected));
+        add_circle_but.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                Drawable drawable;
+                float timeVector = (float)(Math.pow(Math.abs(event.getX() - (float)(view.getX() + view.getWidth()/2.0)), 2)
+                        + Math.pow(Math.abs(event.getY() - (float)(view.getY() + view.getHeight()/2.0)), 2));
+                switch (event.getAction())
+                {
+                    case MotionEvent.ACTION_DOWN:
+                        view.setBackground(getDrawable(R.drawable.anim_add_circle_selected));
+                        drawable = view.getBackground();
+
+                        if (drawable instanceof Animatable)
+                            ((Animatable)drawable).start();
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        if(timeVector > Math.pow((view.getX() + view.getWidth()/2.0) - view.getWidth()/4.0, 2))
+                        {
+                            view.setBackground(getDrawable(R.drawable.anim_add_circle_unselected));
+                            drawable = view.getBackground();
+
+                            if (drawable instanceof Animatable)
+                                ((Animatable)drawable).start();
+                            return false;
+                        }
+                    case MotionEvent.ACTION_CANCEL:
+                    case MotionEvent.ACTION_UP:
+                        view.setBackground(getDrawable(R.drawable.anim_add_circle_unselected));
+                        drawable = view.getBackground();
+
+                        if (drawable instanceof Animatable)
+                            ((Animatable)drawable).start();
+                        break;
+                }
+                return true;
+            }
+        });
+
+
         tabLayout.getTabAt(0).setIcon(R.drawable.alarm_icon);
         tabLayout.getTabAt(0).getIcon().setTint(getColor(R.color.selectedTab));
         tabLayout.getTabAt(1).setIcon(R.drawable.settings_icon);
+        tabLayout.getTabAt(1).getIcon().setTint(getColor(R.color.unselectedTab));
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -200,7 +202,7 @@ public class ClockActivity extends AppCompatActivity {
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-                tab.getIcon().setTint(getColor(R.color.colorPrimary));
+                tab.getIcon().setTint(getColor(R.color.unselectedTab));
             }
 
             @Override

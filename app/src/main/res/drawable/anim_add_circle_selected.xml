@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/add_circle">
+
+    <target
+        android:animation="@animator/add_circle_selected_color"
+        android:name="circle"/>
+
+    <!--<target
+        android:animation=""
+        android:name="circle_and_plus"/>-->
+
+</animated-vector>

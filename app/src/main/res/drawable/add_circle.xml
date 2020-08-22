@@ -1,0 +1,15 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:height="24dp"
+    android:viewportHeight="408"
+    android:viewportWidth="408"
+    android:width="24dp"
+    android:name="circle_and_plus">
+    <path
+        android:name="circle"
+        android:fillColor="@drawable/add_circle_selector"
+        android:pathData="M204,204m-204,0a204,204 0,1 1,408 0a204,204 0,1 1,-408 0"/>
+    <path
+        android:name="plus"
+        android:fillColor="@color/add_circle_plus_tint"
+        android:pathData="M296.55,194L214,194l0,0L214,111.45a10.23,10.23 0,0 0,-9.83 -10.34,10 10,0 0,0 -10.15,10L194.02,194l0,0L111.45,194a10.23,10.23 0,0 0,-10.34 9.83,10 10,0 0,0 10,10.15L194,213.98l0,0v82.54a10.23,10.23 0,0 0,9.83 10.34,10 10,0 0,0 10.15,-10L213.98,214l0,0L296.9,214a10,10 0,0 0,10 -10.15A10.23,10.23 0,0 0,296.55 194Z"/>
+</vector>
