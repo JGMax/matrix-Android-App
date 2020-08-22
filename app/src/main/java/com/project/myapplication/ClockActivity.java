@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -149,39 +150,59 @@ public class ClockActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
 
         add_circle_but = findViewById(R.id.add_alarm_but);
-        add_circle_but.setBackground(getDrawable(R.drawable.anim_add_circle_selected));
+        //add_circle_but.setBackground(getDrawable(R.drawable.anim_add_circle_selected));
+
         add_circle_but.setOnTouchListener(new View.OnTouchListener() {
+            boolean flag = true;
             @Override
             public boolean onTouch(View view, MotionEvent event) {
                 Drawable drawable;
-                float timeVector = (float)(Math.pow(Math.abs(event.getX() - (float)(view.getX() + view.getWidth()/2.0)), 2)
-                        + Math.pow(Math.abs(event.getY() - (float)(view.getY() + view.getHeight()/2.0)), 2));
                 switch (event.getAction())
                 {
                     case MotionEvent.ACTION_DOWN:
+                        flag = true;
+                        drawable = view.getBackground();
+                        if (drawable instanceof Animatable)
+                            if (((Animatable) drawable).isRunning())
+                                ((Animatable) drawable).stop();
+
                         view.setBackground(getDrawable(R.drawable.anim_add_circle_selected));
                         drawable = view.getBackground();
-
                         if (drawable instanceof Animatable)
-                            ((Animatable)drawable).start();
+                            ((Animatable) drawable).start();
                         break;
                     case MotionEvent.ACTION_MOVE:
-                        if(timeVector > Math.pow((view.getX() + view.getWidth()/2.0) - view.getWidth()/4.0, 2))
-                        {
+                        if (flag) {
+                            if (Math.abs(event.getX() - view.getWidth()/2.0) > view.getWidth() ||
+                                    Math.abs(event.getY() - view.getHeight()/2.0) > view.getHeight()) {
+                                flag = false;
+                                drawable = view.getBackground();
+                                if (drawable instanceof Animatable)
+                                    if (((Animatable) drawable).isRunning())
+                                        ((Animatable) drawable).stop();
+
+                                view.setBackground(getDrawable(R.drawable.anim_add_circle_unselected));
+                                drawable = view.getBackground();
+
+                                if (drawable instanceof Animatable)
+                                    ((Animatable) drawable).start();
+                            }
+                        }
+                        break;
+                    case MotionEvent.ACTION_CANCEL:
+                    case MotionEvent.ACTION_UP:
+                        if (flag) {
+                            drawable = view.getBackground();
+                            if (drawable instanceof Animatable)
+                                if (((Animatable) drawable).isRunning())
+                                    ((Animatable) drawable).stop();
+
                             view.setBackground(getDrawable(R.drawable.anim_add_circle_unselected));
                             drawable = view.getBackground();
 
                             if (drawable instanceof Animatable)
-                                ((Animatable)drawable).start();
-                            return false;
+                                ((Animatable) drawable).start();
                         }
-                    case MotionEvent.ACTION_CANCEL:
-                    case MotionEvent.ACTION_UP:
-                        view.setBackground(getDrawable(R.drawable.anim_add_circle_unselected));
-                        drawable = view.getBackground();
-
-                        if (drawable instanceof Animatable)
-                            ((Animatable)drawable).start();
                         break;
                 }
                 return true;
