@@ -1,6 +1,7 @@
 package com.project.myapplication;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -123,10 +124,12 @@ public class ClockActivity extends AppCompatActivity {
         }
     };
 */
+
     private TabAdapter tabAdapter;
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private Button add_circle_but;
+    private final int ALARMS_REQUEST_CODE = 0;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -151,6 +154,14 @@ public class ClockActivity extends AppCompatActivity {
 
         add_circle_but = findViewById(R.id.add_alarm_but);
         //add_circle_but.setBackground(getDrawable(R.drawable.anim_add_circle_selected));
+
+        add_circle_but.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ClockActivity.this, AlarmActivity.class);
+                startActivityForResult(intent, ALARMS_REQUEST_CODE);
+            }
+        });
 
         add_circle_but.setOnTouchListener(new View.OnTouchListener() {
             boolean flag = true;
@@ -205,7 +216,7 @@ public class ClockActivity extends AppCompatActivity {
                         }
                         break;
                 }
-                return true;
+                return false;
             }
         });
 
@@ -214,6 +225,32 @@ public class ClockActivity extends AppCompatActivity {
         tabLayout.getTabAt(0).getIcon().setTint(getColor(R.color.selectedTab));
         tabLayout.getTabAt(1).setIcon(R.drawable.settings_icon);
         tabLayout.getTabAt(1).getIcon().setTint(getColor(R.color.unselectedTab));
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                if(positionOffset != 0) {
+                    add_circle_but.setScaleX(Math.abs(positionOffset - 1));
+                    add_circle_but.setScaleY(Math.abs(positionOffset - 1));
+                    add_circle_but.setClickable(false);
+                }
+                else
+                {
+                    add_circle_but.setClickable(true);
+                    add_circle_but.setScaleX(Math.abs(position - 1));
+                    add_circle_but.setScaleY(Math.abs(position - 1));
+                }
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override

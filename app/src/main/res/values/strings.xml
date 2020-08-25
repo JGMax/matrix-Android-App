@@ -7,4 +7,9 @@
     <string name="date">Дата</string>
     <string name="seconds">Секунды</string>
     <string name="sun">Солнце</string>
+    <string name="new_alarm">Новый будильник</string>
+    <string name="sound">Звук</string>
+    <string name="vibration">Вибрация</string>
+    <string name="sunrise">Рассвет</string>
+    <string name="settings">Настройки</string>
 </resources>

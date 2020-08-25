@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#2B2C2C</color>
     <color name="colorPrimaryDark">#0A0A0A</color>
-    <color name="colorAccent">#8FDBD9D9</color>
+    <color name="colorAccent">#EEFFFFFF</color>
     <color name="choseAlarm">#EEFFFFFF</color>
     <color name="appBackground">#090909</color>
     <color name="zeroColor">#00000000</color>
@@ -12,4 +12,6 @@
     <color name="add_circle_tint">#292C2C</color>
     <color name="add_circle_selected_tint">#353838</color>
     <color name="middleColor">#DD090909</color>
+    <color name="categoryTextColor">#683A3C3C</color>
+    <color name="switchOnColor">#AA0090FF</color>
 </resources>
