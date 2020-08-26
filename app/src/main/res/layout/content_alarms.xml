@@ -14,91 +14,98 @@
         android:layout_height="0dp"
         android:layout_weight="3"
         android:orientation="horizontal">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/hours_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/minutes_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"/>
     </LinearLayout>
 
-    <ScrollView
+    <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:isScrollContainer="false"
+        android:columnCount="2"
+        android:rowCount="3"
         android:background="@color/appBackground"
         android:scrollbarAlwaysDrawHorizontalTrack="false"
-        android:layout_weight="1">
-        <LinearLayout
-            android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_gravity="center_horizontal|start"
+            android:text="@string/settings"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textColor="@color/categoryTextColor"
+            android:textSize="18sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|start"
-                android:paddingStart="18dp"
-                android:paddingEnd="18dp"
-                android:text="@string/settings"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                android:textColor="@color/categoryTextColor"
-                android:textSize="18sp" />
-            <GridLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:columnCount="2"
-                android:rowCount="3"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_horizontal"
+            android:text="@string/sound"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display4"
+            android:textColor="@color/colorAccent"
+            android:padding="8dp"
+            android:textSize="22sp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start|center_horizontal"
-                    android:text="@string/sound"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Display4"
-                    android:textColor="@color/colorAccent"
-                    android:padding="8dp"
-                    android:textSize="22sp" />
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_horizontal"
+            android:checked="true"
+            android:padding="8dp"
+            android:theme="@style/SwitchStyle" />
 
-                <Switch
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end|center_horizontal"
-                    android:checked="true"
-                    android:padding="8dp"
-                    android:theme="@style/SwitchStyle" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_horizontal"
+            android:text="@string/vibration"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display4"
+            android:textColor="@color/colorAccent"
+            android:padding="8dp"
+            android:textSize="22sp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start|center_horizontal"
-                    android:text="@string/vibration"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Display4"
-                    android:textColor="@color/colorAccent"
-                    android:padding="8dp"
-                    android:textSize="22sp" />
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_horizontal"
+            android:checked="true"
+            android:padding="8dp"
+            android:theme="@style/SwitchStyle"/>
 
-                <Switch
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end|center_horizontal"
-                    android:checked="true"
-                    android:padding="8dp"
-                    android:theme="@style/SwitchStyle"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_horizontal"
+            android:text="@string/sunrise"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display4"
+            android:textColor="@color/colorAccent"
+            android:padding="8dp"
+            android:textSize="22sp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start|center_horizontal"
-                    android:text="@string/sunrise"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Display4"
-                    android:textColor="@color/colorAccent"
-                    android:padding="8dp"
-                    android:textSize="22sp" />
-
-                <Switch
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end|center_horizontal"
-                    android:checked="true"
-                    android:padding="8dp"
-                    android:theme="@style/SwitchStyle"/>
-            </GridLayout>
-        </LinearLayout>
-    </ScrollView>
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_horizontal"
+            android:checked="true"
+            android:padding="8dp"
+            android:theme="@style/SwitchStyle"/>
+    </GridLayout>
 </LinearLayout>

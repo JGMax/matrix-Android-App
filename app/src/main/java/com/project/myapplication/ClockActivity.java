@@ -235,7 +235,8 @@ public class ClockActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    add_circle_but.setClickable(true);
+                    if (position == 0)
+                        add_circle_but.setClickable(true);
                     add_circle_but.setScaleX(Math.abs(position - 1));
                     add_circle_but.setScaleY(Math.abs(position - 1));
                 }
