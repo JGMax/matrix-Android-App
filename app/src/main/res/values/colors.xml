@@ -12,4 +12,5 @@
     <color name="add_circle_tint">#292C2C</color>
     <color name="add_circle_selected_tint">#353838</color>
     <color name="middleColor">#DD090909</color>
+    <color name="dialogBackground">#0F0F0F</color>
 </resources>

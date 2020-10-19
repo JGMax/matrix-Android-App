@@ -1,6 +1,7 @@
 package com.project.myapplication;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -199,6 +200,8 @@ public class ClockActivity extends AppCompatActivity {
 
                             view.setBackground(getDrawable(R.drawable.anim_add_circle_unselected));
                             drawable = view.getBackground();
+                            TimeSelectorDialog dialog = new TimeSelectorDialog();
+                            dialog.show(getSupportFragmentManager(), "custom");
 
                             if (drawable instanceof Animatable)
                                 ((Animatable) drawable).start();
