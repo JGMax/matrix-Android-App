@@ -1,6 +1,7 @@
 package com.project.myapplication;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 
 import androidx.recyclerview.widget.LinearLayoutManager;

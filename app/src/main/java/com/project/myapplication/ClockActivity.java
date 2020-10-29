@@ -124,10 +124,12 @@ public class ClockActivity extends AppCompatActivity {
         }
     };
 */
+
     private TabAdapter tabAdapter;
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private Button add_circle_but;
+    private final int ALARMS_REQUEST_CODE = 0;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -200,6 +202,7 @@ public class ClockActivity extends AppCompatActivity {
 
                             view.setBackground(getDrawable(R.drawable.anim_add_circle_unselected));
                             drawable = view.getBackground();
+
                             TimeSelectorDialog dialog = new TimeSelectorDialog();
                             dialog.show(getSupportFragmentManager(), "custom");
 
@@ -208,7 +211,7 @@ public class ClockActivity extends AppCompatActivity {
                         }
                         break;
                 }
-                return true;
+                return false;
             }
         });
 
@@ -217,6 +220,33 @@ public class ClockActivity extends AppCompatActivity {
         tabLayout.getTabAt(0).getIcon().setTint(getColor(R.color.selectedTab));
         tabLayout.getTabAt(1).setIcon(R.drawable.settings_icon);
         tabLayout.getTabAt(1).getIcon().setTint(getColor(R.color.unselectedTab));
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                if(positionOffset != 0) {
+                    add_circle_but.setScaleX(Math.abs(positionOffset - 1));
+                    add_circle_but.setScaleY(Math.abs(positionOffset - 1));
+                    add_circle_but.setClickable(false);
+                }
+                else
+                {
+                    if (position == 0)
+                        add_circle_but.setClickable(true);
+                    add_circle_but.setScaleX(Math.abs(position - 1));
+                    add_circle_but.setScaleY(Math.abs(position - 1));
+                }
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override

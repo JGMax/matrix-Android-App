@@ -4,21 +4,21 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.LinearSnapHelper;
-import androidx.recyclerview.widget.SnapHelper;
 
 import java.util.ArrayList;
 import java.util.Date;
 
 public class TimeSelectorDialog extends DialogFragment {
+    private Button soundButton;
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -27,50 +27,55 @@ public class TimeSelectorDialog extends DialogFragment {
         return builder.setView(R.layout.dialog_time_selector).show();
     }
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.dialog_time_selector, container, false);
+        Date date = new Date();
+        soundButton = v.findViewById(R.id.soundButton);
+
         final SlowdownRecyclerView hoursSelector = v.findViewById(R.id.hoursSelector);
+        final SlowdownRecyclerView minutesSelector = v.findViewById(R.id.minutesSelector);
 
-        hoursSelector.setLayoutManager(new CenterZoomLayoutManager(v.getContext()));
+        final BarrelSelector barrelSelector = new BarrelSelector(v.getContext());
 
-        TimeSelectorAdapter adapter = new TimeSelectorAdapter(getArrayListForHours());
+        barrelSelector.setRecyclerViews(hoursSelector, minutesSelector);
+        barrelSelector.setBarrelData(0, 0, 24, date.getHours() - 15);
+        barrelSelector.setBarrelData(1, 0, 60, date.getMinutes() - 3);
+
+        soundButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.e("First Barrel", barrelSelector.getBarrelsSelectedItemStringData().get(0));
+                Log.e("Second Barrel", barrelSelector.getBarrelsSelectedItemStringData().get(1));
+            }
+        });
+
+        /*hoursSelector.setLayoutManager(new CenterZoomLayoutManager(v.getContext()));
+
+        TimeSelectorAdapter adapter = new TimeSelectorAdapter(getArrayList(0, 24));
         hoursSelector.setAdapter(adapter);
         final SnapHelper snapHelper = new LinearSnapHelper();
         snapHelper.attachToRecyclerView(hoursSelector);
-        hoursSelector.scrollToPosition(2);
+        hoursSelector.scrollToPosition(Integer.MAX_VALUE/2 + date.getHours() - 15);
 
         hoursSelector.post(new Runnable() {
             @Override
             public void run() {
-                View view  = hoursSelector.getLayoutManager().findViewByPosition(2);
+                View view = hoursSelector.getLayoutManager().findViewByPosition(Integer.MAX_VALUE/2 + date.getHours() - 15);
                 if (view == null) {
+                    Log.e("fuck", "fuck");
                     return;
                 }
 
-                int [] snapDistance = snapHelper.calculateDistanceToFinalSnap(hoursSelector.getLayoutManager(), view);
+                int[] snapDistance = snapHelper.calculateDistanceToFinalSnap(hoursSelector.getLayoutManager(), view);
                 if (snapDistance != null && (snapDistance[0] != 0 || snapDistance[1] != 0))
                     hoursSelector.scrollBy(snapDistance[0], snapDistance[1]);
             }
-        });
+        });*/
 
 
         return v;
-    }
-
-
-
-    @SuppressLint("DefaultLocale")
-    private ArrayList<String> getArrayListForHours() {
-        ArrayList<String> list = new ArrayList<>();
-        Date date = new Date();
-        for (int i = date.getHours(); i < 24 + date.getHours(); i++) {
-            if (i%24 < 10)
-                list.add(String.format("0%d", i%24));
-            else
-                list.add(Integer.toString(i%24));
-        }
-        return list;
     }
 }

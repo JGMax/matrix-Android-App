@@ -35,10 +35,11 @@ public class TimeSelectorAdapter extends RecyclerView.Adapter<TimeSelectorAdapte
 
     @Override
     public void onBindViewHolder(@NonNull TimeSelectorViewHolder holder, int position) {
-        if (position <= 1)
+        /*if (position < 2)
             holder.text.setText("  ");
-        else
-            holder.text.setText(time.get((position - 2) % time.size()));
+        else*/
+            holder.text.setText(time.get((position) % time.size()));
+
     }
 
     @Override

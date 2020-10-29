@@ -6,8 +6,8 @@
         android:animation="@animator/add_circle_selected_color"
         android:name="circle"/>
 
-    <!--<target
-        android:animation=""
-        android:name="circle_and_plus"/>-->
+    <target
+        android:animation="@animator/add_circle_selected_scale"
+        android:name="all_group"/>
 
 </animated-vector>

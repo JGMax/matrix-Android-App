@@ -26,9 +26,10 @@
             android:text="|"
             android:textSize="32sp"
             android:textColor="@color/colorAccent"/>
-        <androidx.recyclerview.widget.RecyclerView
+        <com.project.myapplication.SlowdownRecyclerView
+            android:id="@+id/minutesSelector"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="280dp"
             android:layout_weight="1"/>
     </LinearLayout>
     <LinearLayout
@@ -37,10 +38,11 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/soundButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|start"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
