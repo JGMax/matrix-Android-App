@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSnapHelper;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
 
 import java.util.ArrayList;
@@ -54,10 +55,10 @@ public class BarrelSelector extends SlowdownRecyclerView {
         }
     }
 
-    private void setRecyclerViewSettings(final SlowdownRecyclerView view, final SnapHelper snapHelper, ArrayList<String> data, final int centerCorrector) {
+    private void setRecyclerViewSettings(final SlowdownRecyclerView view, final SnapHelper snapHelper, final Adapter adapter, final int centerCorrector) {
         view.setLayoutManager(new CenterZoomLayoutManager(context));
 
-        TimeSelectorAdapter adapter = new TimeSelectorAdapter(data);
+        //
 
         view.setAdapter(adapter);
 
@@ -82,12 +83,18 @@ public class BarrelSelector extends SlowdownRecyclerView {
         });
     }
 
+    public void setBarrelAdapter(int barrelNumber, Adapter adapter, int centerCorrector) {
+        setRecyclerViewSettings(Barrels.get(barrelNumber), Helpers.get(barrelNumber), adapter, centerCorrector);
+    }
+
     public void setBarrelData(int barrelNumber, ArrayList<String> data, int centerCorrector) {
-        setRecyclerViewSettings(Barrels.get(barrelNumber), Helpers.get(barrelNumber), data, centerCorrector);
+        TimeSelectorAdapter adapter = new TimeSelectorAdapter(data);
+        setRecyclerViewSettings(Barrels.get(barrelNumber), Helpers.get(barrelNumber), adapter, centerCorrector);
     }
 
     public void setBarrelData(int barrelNumber, int from, int to, int centerCorrector) {
-        setRecyclerViewSettings(Barrels.get(barrelNumber), Helpers.get(barrelNumber), getArrayList(from, to), centerCorrector);
+        TimeSelectorAdapter adapter = new TimeSelectorAdapter(getArrayList(from, to));
+        setRecyclerViewSettings(Barrels.get(barrelNumber), Helpers.get(barrelNumber), adapter, centerCorrector);
     }
 
     public ArrayList<View> getBarrelsSelectedItems() {
@@ -97,16 +104,6 @@ public class BarrelSelector extends SlowdownRecyclerView {
             selectedViews.add(view);
         }
         return selectedViews;
-    }
-
-    public ArrayList<String> getBarrelsSelectedItemStringData() {
-        ArrayList<String> results = new ArrayList<>();
-        ArrayList<View> selectedViews = getBarrelsSelectedItems();
-        for (View view : selectedViews) {
-            TextView text = view.findViewById(R.id.timeSelectorNum);
-            results.add(text.getText().toString());
-        }
-        return results;
     }
 
     private int getPowCount(int num) {

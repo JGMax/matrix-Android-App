@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -47,8 +48,10 @@ public class TimeSelectorDialog extends DialogFragment {
         soundButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.e("First Barrel", barrelSelector.getBarrelsSelectedItemStringData().get(0));
-                Log.e("Second Barrel", barrelSelector.getBarrelsSelectedItemStringData().get(1));
+                TextView hours = barrelSelector.getBarrelsSelectedItems().get(0).findViewById(R.id.timeSelectorNum);
+                TextView minutes = barrelSelector.getBarrelsSelectedItems().get(1).findViewById(R.id.timeSelectorNum);
+                Log.e("First Barrel", hours.getText().toString());
+                Log.e("Second Barrel", minutes.getText().toString());
             }
         });
 

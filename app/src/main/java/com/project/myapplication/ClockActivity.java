@@ -226,6 +226,17 @@ public class ClockActivity extends AppCompatActivity {
                 if(positionOffset != 0) {
                     add_circle_but.setScaleX(Math.abs(positionOffset - 1));
                     add_circle_but.setScaleY(Math.abs(positionOffset - 1));
+
+                    Drawable drawable = add_circle_but.getBackground();
+                    if (drawable instanceof Animatable)
+                        if (((Animatable) drawable).isRunning())
+                            ((Animatable) drawable).stop();
+
+                    add_circle_but.setBackground(getDrawable(R.drawable.anim_add_circle_unselected));
+
+                    if (drawable instanceof Animatable)
+                        ((Animatable) drawable).start();
+
                     add_circle_but.setClickable(false);
                 }
                 else

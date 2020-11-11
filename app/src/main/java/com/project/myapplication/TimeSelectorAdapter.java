@@ -39,7 +39,6 @@ public class TimeSelectorAdapter extends RecyclerView.Adapter<TimeSelectorAdapte
             holder.text.setText("  ");
         else*/
             holder.text.setText(time.get((position) % time.size()));
-
     }
 
     @Override
