@@ -1,11 +1,9 @@
 package com.project.myapplication;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -216,9 +214,9 @@ public class ClockActivity extends AppCompatActivity {
         });
 
 
-        tabLayout.getTabAt(0).setIcon(R.drawable.alarm_icon);
+        tabLayout.getTabAt(0).setIcon(R.drawable.ic_alarm);
         tabLayout.getTabAt(0).getIcon().setTint(getColor(R.color.selectedTab));
-        tabLayout.getTabAt(1).setIcon(R.drawable.settings_icon);
+        tabLayout.getTabAt(1).setIcon(R.drawable.ic_settings);
         tabLayout.getTabAt(1).getIcon().setTint(getColor(R.color.unselectedTab));
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

@@ -7,12 +7,14 @@
     <color name="appBackground">#090909</color>
     <color name="zeroColor">#00000000</color>
     <color name="unselectedTab">#FFFFFF</color>
-    <color name="selectedTab">#0066FF</color>
-    <color name="add_circle_plus_tint">#0E62D1</color>
+    <color name="selectedTab">#FA0090FF</color>
+    <color name="add_circle_plus_tint">#FA0090FF</color>
     <color name="add_circle_tint">#292C2C</color>
     <color name="add_circle_selected_tint">#353838</color>
     <color name="middleColor">#DD090909</color>
     <color name="dialogBackground">#0F0F0F</color>
     <color name="categoryTextColor">#683A3C3C</color>
-    <color name="switchOnColor">#AA0090FF</color>
+    <color name="timeSelectorButtonPanelColor">#C3212222</color>
+    <color name="selectedTimeSelectorButtonColor">#FA0090FF</color>
+    <color name="unselectedTimeSelectorButtonColor">#5F5F5F</color>
 </resources>

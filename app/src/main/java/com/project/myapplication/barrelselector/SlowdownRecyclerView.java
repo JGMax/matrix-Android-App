@@ -1,4 +1,4 @@
-package com.project.myapplication;
+package com.project.myapplication.barrelselector;
 
 import android.content.Context;
 import android.util.AttributeSet;

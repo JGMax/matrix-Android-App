@@ -1,25 +1,28 @@
 package com.project.myapplication;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.CompoundButton;
+import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
-import java.util.ArrayList;
+import com.project.myapplication.barrelselector.BarrelSelector;
+import com.project.myapplication.barrelselector.SlowdownRecyclerView;
+
 import java.util.Date;
 
 public class TimeSelectorDialog extends DialogFragment {
-    private Button soundButton;
+
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -33,8 +36,15 @@ public class TimeSelectorDialog extends DialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.dialog_time_selector, container, false);
+        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
         Date date = new Date();
-        soundButton = v.findViewById(R.id.soundButton);
+
+        ToggleButton soundButton = v.findViewById(R.id.soundButton);
+        ToggleButton vibrationButton = v.findViewById(R.id.vibrationButton);
+        ToggleButton sunriseButton = v.findViewById(R.id.sunriseButton);
+
+        Button confirmTimeButton = v.findViewById(R.id.confirmTimeButton);
 
         final SlowdownRecyclerView hoursSelector = v.findViewById(R.id.hoursSelector);
         final SlowdownRecyclerView minutesSelector = v.findViewById(R.id.minutesSelector);
@@ -45,38 +55,55 @@ public class TimeSelectorDialog extends DialogFragment {
         barrelSelector.setBarrelData(0, 0, 24, date.getHours() - 15);
         barrelSelector.setBarrelData(1, 0, 60, date.getMinutes() - 3);
 
-        soundButton.setOnClickListener(new View.OnClickListener() {
+        confirmTimeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextView hours = barrelSelector.getBarrelsSelectedItems().get(0).findViewById(R.id.timeSelectorNum);
-                TextView minutes = barrelSelector.getBarrelsSelectedItems().get(1).findViewById(R.id.timeSelectorNum);
-                Log.e("First Barrel", hours.getText().toString());
-                Log.e("Second Barrel", minutes.getText().toString());
+                view.getBackground().setTint(getResources().getColor(R.color.selectedTimeSelectorButtonColor));
             }
         });
 
-        /*hoursSelector.setLayoutManager(new CenterZoomLayoutManager(v.getContext()));
-
-        TimeSelectorAdapter adapter = new TimeSelectorAdapter(getArrayList(0, 24));
-        hoursSelector.setAdapter(adapter);
-        final SnapHelper snapHelper = new LinearSnapHelper();
-        snapHelper.attachToRecyclerView(hoursSelector);
-        hoursSelector.scrollToPosition(Integer.MAX_VALUE/2 + date.getHours() - 15);
-
-        hoursSelector.post(new Runnable() {
+        soundButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void run() {
-                View view = hoursSelector.getLayoutManager().findViewByPosition(Integer.MAX_VALUE/2 + date.getHours() - 15);
-                if (view == null) {
-                    Log.e("fuck", "fuck");
-                    return;
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    compoundButton.setBackground(getResources().getDrawable(R.drawable.ic_volume_up));
+                    compoundButton.getBackground().setTint(getResources().getColor(R.color.selectedTimeSelectorButtonColor));
                 }
-
-                int[] snapDistance = snapHelper.calculateDistanceToFinalSnap(hoursSelector.getLayoutManager(), view);
-                if (snapDistance != null && (snapDistance[0] != 0 || snapDistance[1] != 0))
-                    hoursSelector.scrollBy(snapDistance[0], snapDistance[1]);
+                else {
+                    compoundButton.setBackground(getResources().getDrawable(R.drawable.ic_volume_off));
+                    compoundButton.getBackground().setTint(getResources().getColor(R.color.unselectedTimeSelectorButtonColor));
+                }
             }
-        });*/
+        });
+
+        vibrationButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    compoundButton.setBackground(getResources().getDrawable(R.drawable.ic_vibration_on));
+                    compoundButton.getBackground().setTint(getResources().getColor(R.color.selectedTimeSelectorButtonColor));
+                }
+                else {
+                    compoundButton.setBackground(getResources().getDrawable(R.drawable.ic_vibration_on));
+                    compoundButton.getBackground().setTint(getResources().getColor(R.color.unselectedTimeSelectorButtonColor));
+                }
+            }
+        });
+
+
+        sunriseButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    compoundButton.setBackground(getResources().getDrawable(R.drawable.ic_sunny_on));
+                    compoundButton.getBackground().setTint(getResources().getColor(R.color.selectedTimeSelectorButtonColor));
+                }
+                else {
+                    compoundButton.setBackground(getResources().getDrawable(R.drawable.ic_sunny_on));
+                    compoundButton.getBackground().setTint(getResources().getColor(R.color.unselectedTimeSelectorButtonColor));
+                }
+            }
+        });
 
 
         return v;
